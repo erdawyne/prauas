@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Pra-UAS Web Service Consume</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    <script> 
+        </head>
+    <body>
+        <div>Data Test Sender</div>
+        <hr>
+        cost url = "http://localhost:8080/barangg";
+        function post() {
+        let genID = Math.floor(Math.random() *500);
+        let dataText = {"id": genID, "name":"Erda", "birthdate" :"2002-01-24"};
+        let dataJson = JSON.stringify(dataText);
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: dataJson,
+            contentType:'application/json',
+            dataType: 'text',
+            success: function (result) {
+                console.log(result);
+            }
+          });
+        } 
+        
+           function put() {
+                const urlp = "http://localhost:8080/PUT";
+                let editID = document.getElementById("myid").value;
+                let name = document.getElementById("name").value;
+                let date = document.getElementById("birthdate").value;
+                let dataText = {"id": editID, "name": name, "birthdate": date};
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: urlp,
+                    method: 'PUT',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+        
+            function get() {
+                const url = "http://localhost:8080/GET";
+                $.ajax({
+                    url: urlg,
+                    method: 'GET',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                });
+            }
+
+            function delID() {
+                const urlp = "http://localhost:8080/DELETE";
+                let editID = document.getElementById("myid").value;
+                let dataText = {"id": editID};
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: urlp,
+                    method: 'DELETE',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+
+        </script> 
+        <input type="text" id="myid" name="myid"> 
+        <input type="text" id="name" name="name">
+        <input type="date" id="birthdate" name="birthdate">
+        <hr>
+
+        <button onclick ="get()">Get Data from Web Service</button> <br>
+        <button onclick ="post()">Send Data to Web Service</button> <br>
+        <button onclick ="put()">Edit Data of Web Service</button> <br>
+        <button onclick ="delID()">Delete Data of Web Service</button> <br>
+        <hr>
+        <div id="viewer"></div>
+    </body>
+</html>
